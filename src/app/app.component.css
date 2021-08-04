@@ -1,0 +1,16 @@
+.wrapper{
+    margin: 50px auto;
+    padding: 20px;
+    display: inline-block;
+    width: 400px;
+    text-align: center;
+}
+.wrapper a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+.content {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
