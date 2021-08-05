@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { UserModule } from './user/user.module';
+import { StoreModule } from '@ngrx/store';
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { UserModule } from './user/user.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UserModule
+    HttpClientModule,
+    StoreModule.forRoot({ router: routerReducer}),
+    EffectsModule.forRoot([]),
+    UserModule,
+    StoreDevtoolsModule.instrument(),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

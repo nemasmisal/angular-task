@@ -1,1 +1,9 @@
-<p>user-details works!</p>
+<div *ngIf="user$ | async as item">
+   <h3>ID: {{item.id}}</h3>
+   <h3>Name: {{item.name}}</h3>
+   <h3>Username: {{item.username}}</h3>
+   <h3>Email: {{item.email}}</h3>
+   <h3>Website: {{item.website}}</h3>
+   <h3>Phone: {{item.phone}}</h3>
+   <h3>City: {{item.address.city}}, Street: {{item.address.city}}</h3>
+</div>
