@@ -1,9 +1,15 @@
-<div *ngIf="user$ | async as item">
-   <h3>ID: {{item.id}}</h3>
-   <h3>Name: {{item.name}}</h3>
-   <h3>Username: {{item.username}}</h3>
-   <h3>Email: {{item.email}}</h3>
-   <h3>Website: {{item.website}}</h3>
-   <h3>Phone: {{item.phone}}</h3>
-   <h3>City: {{item.address.city}}, Street: {{item.address.city}}</h3>
+<div [appResolve]="[resolveBundle]" #resolve='appResolve'>
+   <div *ngIf="!resolve.isResolving else lodaing">
+         <h3>ID: {{(user$ | async)?.id}}</h3>
+         <h3>Name: {{(user$ | async)?.name}}</h3>
+         <h3>Username: {{(user$ | async)?.username}}</h3>
+         <h3>Email: {{(user$ | async)?.email}}</h3>
+         <h3>Website: {{(user$ | async)?.website}}</h3>
+         <h3>Phone: {{(user$ | async)?.phone}}</h3>
+         <h3>City: {{(user$ | async)?.address?.city}}, Street: {{(user$ | async)?.address?.city}}</h3>
+   </div>
+   <ng-template #lodaing> Loadig...</ng-template>
+   <div *ngIf="resolve.hasError">
+      We face some trouble trying to get your request.. 
+  </div>
 </div>

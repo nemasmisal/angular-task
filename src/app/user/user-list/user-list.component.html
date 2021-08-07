@@ -1,20 +1,22 @@
-<div class="card">
-    <div class="card-header">
-      Basket
-    </div>
-    <div *ngIf="(users$ | async); else noUsers"class="card-body">
-        <ul *ngFor="let user of (users$ | async)">
-            <li><a [routerLink]="['/user/details', user.id]">id: {{user.id}}</a></li>
-            <li>name: {{user.name}}</li>
-            <li>username: {{user.username}}</li>
-            <li>email: {{user.email}}</li>
-            <li>phone: {{user.id}}</li>
-            <li>website: {{user.website}}</li>
-            <li>address: {{user.address.street}}, {{user.address.city}}</li>
-            <li>company: {{user.company.name}}</li>
+<div class="card" [appResolve]="[resolveBundle]" #resolve='appResolve'>
+    <div *ngIf="!resolve.isResolving else noUsers">
+        <ul *ngFor="let user of (users$ | async)" >
+            <p >
+                <li><a [routerLink]="['/user/details', user.id]">id: {{user.id}}</a></li>
+                <li>name: {{user.name}}</li>
+                <li>username: {{user.username}}</li>
+                <li>email: {{user.email}}</li>
+                <li>phone: {{user.id}}</li>
+                <li>website: {{user.website}}</li>
+                <li>address: {{user.address.street}}, {{user.address.city}}</li>
+                <li>company: {{user.company.name}}</li>
+            </p>
         </ul>
-        </div>
+    </div>
+    <div *ngIf="resolve.hasError">
+        We face some trouble trying to get your request.. 
+    </div>
     <ng-template #noUsers>
-        <h3>No Users loaded yet.. could be the internet ot the implementation :/</h3>
+        <h3>No Users loaded yet.. could be the internet or the implementation :/</h3>
     </ng-template>
   </div>

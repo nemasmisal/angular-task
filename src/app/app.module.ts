@@ -11,13 +11,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+// import { SecondDirective } from './second.directive';
+// import { ResolveDirective } from './resolve.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    // SecondDirective,
+    // ResolveDirective
   ],
+  // exports: [SecondDirective, ResolveDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,

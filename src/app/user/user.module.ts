@@ -7,12 +7,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from '../+store/user/effects';
 import * as userReducer from '../+store/user/reducer'
+import { ResolveDirective } from '../resolve.directive';
 
 @NgModule({
   declarations: [
     UserListComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ResolveDirective,
   ],
+  exports: [ResolveDirective],
   imports: [
     CommonModule,
     StoreModule.forFeature(userReducer.featureKey, userReducer.reducer),
