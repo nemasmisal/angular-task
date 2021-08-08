@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ofType } from '@ngrx/effects';
 import { Store, ActionsSubject } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { IUserState } from 'src/app/+store/models/userState';
 import { IUser } from 'src/app/core/models/user';
 import { IResolveBundle } from 'src/app/resolve.directive';
@@ -14,8 +15,8 @@ import { ActionTypes, cancelUserRequest, clearSelectedUser, getUserById } from '
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css']
 })
-export class UserDetailsComponent implements OnInit {
-  user$: Observable<IUser | null> | null = null;
+export class UserDetailsComponent  {
+  user$: Observable<IUser | null>  = this.store.select(user.selectedUser);
   constructor(
     private store: Store<IUserState>,
     private route: ActivatedRoute,
@@ -23,10 +24,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   resolveBundle: IResolveBundle = {
-    dispatchRequest: ([dep]: any[]) => {
-      const [payload] = dep;
-      return this.store.dispatch(getUserById(payload))
-    },
+    dispatchRequest: ([id]: any) => this.store.dispatch(getUserById({payload : id })),
     dispatchRequestCancel: () => this.store.dispatch(cancelUserRequest()),
     requestSuccess$: this.storeActions.pipe(
       ofType(ActionTypes.getUserByIdSuccess)
@@ -34,15 +32,7 @@ export class UserDetailsComponent implements OnInit {
     requestFailure$: this.storeActions.pipe(
       ofType(ActionTypes.getUserByIdFailed)
     ),
-    dependencies: []
-  }
-
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const { id } = params;
-      this.resolveBundle.dependencies = [of([{ payload: { id } }])]
-    })
-    this.user$ = this.store.select(user.selectedUser)
+    dependencies: [this.route.params.pipe(map(params => params))]
   }
 
   ngOnDestroy(): void {

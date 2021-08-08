@@ -1,5 +1,5 @@
 <div [appResolve]="[resolveBundle]" #resolve='appResolve'>
-   <div *ngIf="!resolve.isResolving else lodaing">
+   <div *ngIf="!resolve.isResolving; else lodaing">
          <h3>ID: {{(user$ | async)?.id}}</h3>
          <h3>Name: {{(user$ | async)?.name}}</h3>
          <h3>Username: {{(user$ | async)?.username}}</h3>

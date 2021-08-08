@@ -14,7 +14,7 @@ import { ofType } from '@ngrx/effects';
 })
 
 export class UserListComponent {
-  users$: Observable<IUser[]>;
+  users$: Observable<IUser[]> = this.store.select(user.all);
   resolveBundle: IResolveBundle = {
     dispatchRequest: () => this.store.dispatch(getUsers()),
     dispatchRequestCancel: () => this.store.dispatch(cancelUserRequest()),
@@ -27,7 +27,5 @@ export class UserListComponent {
   }
 
   constructor(private store: Store,
-    protected readonly storeActions: ActionsSubject) {
-    this.users$ = store.select(user.all)
-  }
+    protected readonly storeActions: ActionsSubject) {}
 }
